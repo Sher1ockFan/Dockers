@@ -1,0 +1,42 @@
+FROM ubuntu:20.04
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Asia/Shanghai
+# 更新包列表并安装依赖项
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libeigen3-dev \
+    wget \
+    zip \
+    git \
+    tar \
+    cmake \
+    g++ \
+    libx11-dev \
+    libglfw3-dev \
+    libxinerama-dev \
+    libxcursor-dev \
+    libxi-dev \
+    libssl-dev \
+    unzip && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# 设置工作目录
+WORKDIR /root/PNDbotics/
+
+# 拷贝文件
+COPY ./pnd_adam_deploy_public.zip ./
+RUN unzip pnd_adam_deploy_public.zip && rm pnd_adam_deploy_public.zip
+
+COPY ./libtorch.zip ./pnd_adam_deploy_public/
+RUN cd pnd_adam_deploy_public/ && unzip libtorch.zip && rm libtorch.zip
+
+# 执行安装脚本
+# RUN cd pnd_adam_deploy_public && \
+#    chmod +x install.sh && \
+#    chmod +x build_adam_lite_mujoco.sh && \
+#    sh install.sh && \
+#    sh build_adam_lite_mujoco.sh
+
+
+
