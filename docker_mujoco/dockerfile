@@ -4,9 +4,6 @@ ENV TZ=Asia/Shanghai
 # 更新包列表并安装依赖项
 RUN apt-get update && apt-get install -y \
     build-essential \
-    xpra \
-    xterm \
-    firefox \
     libeigen3-dev \
     wget \
     zip \
@@ -15,12 +12,18 @@ RUN apt-get update && apt-get install -y \
     cmake \
     g++ \
     libx11-dev \
+    libglew-dev \
+    libgl1-mesa-dev \
+    libosmesa6-dev \
     libglfw3-dev \
     libxinerama-dev \
     libxcursor-dev \
     libxi-dev \
     libssl-dev \
     unzip && \
+    x11-apps \
+    xvfb \
+    mesa-utils \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
